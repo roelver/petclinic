@@ -4,6 +4,6 @@ import nl.roelv.petclinic.model.Owner;
 
 public interface OwnerService extends CrudService<Owner, Long> {
 
-    Owner findByLastname(String lasName);
+    Owner findByLastname(String lastName);
 
 }
