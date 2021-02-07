@@ -1,13 +1,12 @@
 package nl.roelv.petclinic.service.map;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import nl.roelv.petclinic.model.BaseEntity;
 
-public class AbstractMapService<T, ID> {
+import java.util.*;
 
-    protected Map<ID, T> data = new HashMap<>();
+public class AbstractMapService<T extends BaseEntity, ID extends Long> {
+
+    protected Map<Long, T> data = new HashMap<>();
 
     Set<T> findAll() {
         return new HashSet<>(data.values());
@@ -17,8 +16,15 @@ public class AbstractMapService<T, ID> {
         return data.get(id);
     }
 
-    T save(ID id,  T obj) {
-        data.put(id, obj);
+    public T save(T obj) {
+        if (obj == null) {
+            throw new RuntimeException("No object was passed to save");
+        }
+        if (obj.getId() == null) {
+            Long id = getNextId();
+            obj.setId(id);
+        }
+        data.put(obj.getId(), obj);
         return obj;
     }
 
@@ -28,5 +34,13 @@ public class AbstractMapService<T, ID> {
 
     public void deleteById(ID id) {
         data.remove(id);
+    }
+
+
+    private Long getNextId() {
+        if (data.size() == 0) {
+            return 1L;
+        }
+        return Collections.max(data.keySet()) + 1;
     }
 }
