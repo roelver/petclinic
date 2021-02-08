@@ -1,2 +1,2 @@
 # petclinic
-A Sprng5 tutorial
+A Spring5 tutorial
