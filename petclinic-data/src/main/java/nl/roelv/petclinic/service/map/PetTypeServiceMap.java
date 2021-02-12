@@ -2,9 +2,11 @@ package nl.roelv.petclinic.service.map;
 
 import nl.roelv.petclinic.model.PetType;
 import nl.roelv.petclinic.service.PetTypeService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class PetTypeServiceMap extends AbstractMapService<PetType, Long> implements PetTypeService {
 
     @Override
